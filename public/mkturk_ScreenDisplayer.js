@@ -439,7 +439,7 @@ class ScreenDisplayer{
 		}, {once: true})
 
 		this.choice_vid[0].addEventListener("ended", (e) => {
-			frame_unix_timestamps[1] = 0
+			frame_unix_timestamps[1] = performance.now()
 
 			if(!_this.choice_vid[1].ended) {
 				_this.choice_vid[1].pause()

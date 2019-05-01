@@ -130,7 +130,6 @@ class PlaySpaceClass{
             var fixationOutcome = await this.ActionPoller.Promise_wait_until_active_response()    
         }
         
-
         // TODO:    async functions for display stim sequence and action poller
         //          need to have looping data => actionPoller either needs access
         //          to screenDisplayer or vis-versa in order to properly stop the 
@@ -139,7 +138,7 @@ class PlaySpaceClass{
         // RUN STIMULUS SEQUENCE
         wdm('Running stimulus...')
         var t_SequenceTimestamps = await this.ScreenDisplayer.displayStimulusSequence()	// force at least one watch through of the entire stimulus asset
-        this.ScreenDisplayer.loopStimulus()													// loop video (if loop)
+        this.ScreenDisplayer.loopStimulus()												// loop video (if loop)
 
         var actionXCentroidPixels = this.xprop2pixels(trialPackage['actionXCentroid'])
         var actionYCentroidPixels = this.yprop2pixels(trialPackage['actionYCentroid'])
@@ -151,7 +150,7 @@ class PlaySpaceClass{
             actionDiameterPixels)
 
         this.ActionPoller.create_button_mappings({'f':0, 'j':1})
-
+        // var time_out = perfomance.now()
         if(trialPackage['choiceTimeLimitMsec'] > 0){
             var actionPromise = Promise.race([
                                 this.ActionPoller.Promise_wait_until_active_response(), 
@@ -164,8 +163,9 @@ class PlaySpaceClass{
         wdm('Awaiting choice...')
         // testing
         var loop = true
-        if (loop) { var actionOutcome = await actionPromise.then(this.ScreenDisplayer.stopStimulus) }
-            else var actionOutcome = await actionPromise
+        if (loop) {
+            var actionOutcome = await actionPromise.then(this.ScreenDisplayer.stopStimulus)
+        } else var actionOutcome = await actionPromise
 
         // var actionOutcome = await actionPromise
         var rewardAmount = trialPackage['choiceRewardMap'][actionOutcome['actionIndex']]
