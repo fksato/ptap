@@ -3,7 +3,7 @@ class Verifier{
         this.verificationLog = {}
         this.verificationLog['verified'] = false 
         this.verificationLog['usingFailSafeHIT'] = false
-        this.verificationLog['IMAGEBAGS_hash'] = undefined 
+        this.verificationLog['STIMBAGS_hash'] = undefined 
         this.verificationLog['GAME_hash'] = undefined 
         this.verificationLog['ENVIRONMENT_hash'] = undefined 
         this.verificationLog['TASK_SEQUENCE_hash'] = undefined 
@@ -28,7 +28,7 @@ class Verifier{
         // Hash 
         this.verificationLog['ENVIRONMENT_hash'] = JSON.stringify(sessionPackage['ENVIRONMENT']).hashCode()
         this.verificationLog['GAME_hash'] = JSON.stringify(sessionPackage['GAME_PACKAGE']['GAME']).hashCode()
-        this.verificationLog['IMAGEBAGS_hash'] = JSON.stringify(sessionPackage['GAME_PACKAGE']['IMAGEBAGS']).hashCode()
+        this.verificationLog['STIMBAGS_hash'] = JSON.stringify(sessionPackage['GAME_PACKAGE']['STIMBAGS']).hashCode()
         this.verificationLog['TASK_SEQUENCE_hash'] = JSON.stringify(sessionPackage['GAME_PACKAGE']['TASK_SEQUENCE']).hashCode()
         return sessionPackage
     }
@@ -45,7 +45,7 @@ class Verifier{
         var verified = true
 
         var necessary_keys = [
-            'IMAGEBAGS', 
+            'STIMBAGS', 
             'GAME', 
             'TASK_SEQUENCE']
 
@@ -84,19 +84,19 @@ class Verifier{
                 return false
             }
 
-            // Check that all samplebag keys referenced in task is in IMAGEBAGS
-            var missing_sampleBagNames = this.check_key_presence(gamePackage['IMAGEBAGS'], tk['sampleBagNames'])
+            // Check that all samplebag keys referenced in task is in STIMBAGS
+            var missing_sampleBagNames = this.check_key_presence(gamePackage['STIMBAGS'], tk['sampleBagNames'])
             if(missing_sampleBagNames.length > 0 ){
                     verified = false 
-                    console.log('IMAGEBAGS is missing', missing_sampleBagNames)
+                    console.log('STIMBAGS is missing', missing_sampleBagNames)
                 }
 
             if(tk['choiceMap'] != undefined && tk['taskType'] == 'MTS'){
                 for (var sampleBag in tk['sampleBagNames']){
-                    var missing_choiceBagNames = this.check_key_presence(gamePackage['IMAGEBAGS'], tk['choiceMap'][sampleBag])
+                    var missing_choiceBagNames = this.check_key_presence(gamePackage['STIMBAGS'], tk['choiceMap'][sampleBag])
                     if(missing_choiceBagNames.length > 0 ){
                         verified = false 
-                        console.log('IMAGEBAGS is missing', missing_choiceBagNames)
+                        console.log('STIMBAGS is missing', missing_choiceBagNames)
                     }
                 }
                 

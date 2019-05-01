@@ -13,10 +13,10 @@ class CheckPointerClass{
 
 class DropboxCheckPointer extends CheckPointerClass{ 
 
-constructor(DIO, agentId, gamePackage){
+constructor(ADIO, agentId, gamePackage){
     super(gamePackage)
 
-    this.DIO = DIO
+    this.ADIO = ADIO
     this.agentId = agentId
     this.saveTimeoutMsec = 5000 
     this.debugMode = true
@@ -26,10 +26,10 @@ async build(){
     this.checkpointSavePath = join([INSTALL_SETTINGS.checkpointDirPath, 'Checkpoint_'+this.agentId+'.ckpt'])
     this.debugCheckpointSavePath = join([INSTALL_SETTINGS.debugCheckpointDirPath, 'debug_Checkpoint_'+this.agentId+'.ckpt'])
 
-    var exists = await DIO.exists(this.checkpointSavePath)
+    var exists = await ADIO.exists(this.checkpointSavePath)
     if(exists == true){
         try{
-            var checkpoint = await DIO.read_textfile(this.checkpointSavePath) 
+            var checkpoint = await ADIO.read_textfile(this.checkpointSavePath) 
             var checkpoint = JSON.parse(checkpoint)
             var checkpoint = this.verify_checkpoint(checkpoint)
         }
@@ -121,7 +121,7 @@ async save_checkpoint(){
     else{
         var savePath = this.checkpointSavePath
     }
-    await this.DIO.write_string(checkpointString, savePath)
+    await this.ADIO.write_string(checkpointString, savePath)
     console.log('Saved checkpoint at', savePath, 'of size', memorySizeOf(checkpointString, 1))
 }
 

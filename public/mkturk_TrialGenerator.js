@@ -1,8 +1,8 @@
 class TrialGeneratorClass{
-    constructor(IB, imageBags, taskSequence, onFinish){
-        this.IB = IB 
+    constructor(AB, stimbags, taskSequence, onFinish){
+        this.AB = AB 
         this.taskSequence = taskSequence
-        this.imageBags = imageBags
+        this.stimbags = stimbags
 
         this.trialBuffer = {} // taskNumber : {bagName: [tP] }
 
@@ -20,7 +20,7 @@ class TrialGeneratorClass{
         this.id2idx = {}
 
         var i_bag = 0
-        var bagsAlphabetized = Object.keys(this.imageBags).sort()
+        var bagsAlphabetized = Object.keys(this.stimbags).sort()
         for (var i_bag in bagsAlphabetized){
             var bag = bagsAlphabetized[i_bag]
             this.bag2idx[bag] = parseInt(i_bag)
@@ -28,11 +28,11 @@ class TrialGeneratorClass{
             i_bag++
              
 
-            if (this.imageBags[bag].constructor != Array){
-                var idAlphabetized = [this.imageBags[bag]]
+            if (this.stimbags[bag].constructor != Array){
+                var idAlphabetized = [this.stimbags[bag]]
             }
             else{
-                var idAlphabetized = (this.imageBags[bag]).sort()
+                var idAlphabetized = (this.stimbags[bag]).sort()
             }
             
             this.id2idx[bag] = {}
@@ -60,7 +60,7 @@ class TrialGeneratorClass{
 
     async get_trial(taskNumber, bagSamplingWeights){
         this.taskNumber = taskNumber
-        // Selects the imagebag for the trialPackage based on bagSamplingWeights (if supplied). 
+        // Selects the assetbag for the trialPackage based on bagSamplingWeights (if supplied). 
         // If user specified bagSamplingWeights in tk, then default to those. 
         // Otherwise, select among the bags with uniform probability. 
 
@@ -95,6 +95,8 @@ class TrialGeneratorClass{
     async buffer_trial(taskNumber, sampleBagName){
         // Seed 
         // Math.seedrandom(trialSeed)
+        var taskAssetType = this.taskSequence[taskNumber]['assetType']
+        if (taskAssetType == 'video') var loopVid = this.taskSequence[taskNumber]['loopVid']
 
         if (sampleBagName == undefined){
             var sampleBagName = np.choice(this.taskSequence[taskNumber]['sampleBagNames'])
@@ -107,8 +109,8 @@ class TrialGeneratorClass{
 
         // Select sample bag
         var sampleBag = sampleBagName
-        var sampleId = np.choice(this.imageBags[sampleBag])
-        var sampleIdx = this.get_image_idx(sampleBag, sampleId)
+        var sampleId = np.choice(this.stimbags[sampleBag])
+        var sampleIdx = this.get_asset_idx(sampleBag, sampleId)
     
         
         // SR - use white dots 
@@ -133,9 +135,16 @@ class TrialGeneratorClass{
         else if(tk['taskType'] == 'MTS'){
             console.log("MTS")
             var correctBag = np.choice(tk['choiceMap'][sampleBag])
-            var correctPool = this.imageBags[correctBag]
-            var correctId = np.choice(correctPool)
-            var correctIdx = this.get_image_idx(correctBag, choiceId) 
+            var correctPool = this.stimbags[correctBag].slice()
+            var check = correctPool.splice(sampleIdx['id']-1, 1)
+
+            if(check.includes(sampleId)) {
+                console.error('DOES NOT COMPUTE')
+            }
+
+
+            var correctId = np.choice(check)
+            var correctIdx = this.get_asset_idx(correctBag, correctId) 
 
             // Select distractors
             var distractorBagIdxPool = [] 
@@ -159,7 +168,7 @@ class TrialGeneratorClass{
             }
             var distractorId = []
             for(var j in distractorBag){
-                distractorId.push(np.choice(this.imageBags[distractorBag[j]]))
+                distractorId.push(np.choice(this.stimbags[distractorBag[j]]))
             }
             var distractorIdx = {'bag':distractorBagIdx, 'id':this.id2idx[distractorId]}
 
@@ -172,7 +181,7 @@ class TrialGeneratorClass{
             choiceId = np.iloc(choiceId, choice_shuffle)
             choiceBag = np.iloc(choiceBag, choice_shuffle)
 
-            var choiceIdx = this.get_image_idx(choiceBag, choiceId)
+            var choiceIdx = this.get_asset_idx(choiceBag, choiceId)
             var rewardMap = np.zeros(choiceId.length)
             rewardMap[choiceId.indexOf(correctId)] = 1 
         }
@@ -196,8 +205,8 @@ class TrialGeneratorClass{
 
             var choice1Bag = np.choice(choice1_space)
             var choice2Bag = np.choice(choice2_space)
-            var choice1ImagePool = this.imageBags[choice1Bag]
-            var choice2ImagePool = this.imageBags[choice2Bag]
+            var choice1ImagePool = this.stimbags[choice1Bag]
+            var choice2ImagePool = this.stimbags[choice2Bag]
 
             var choice1Id = np.choice(choice1ImagePool)
             var choice2Id = np.choice(choice2ImagePool)
@@ -211,23 +220,25 @@ class TrialGeneratorClass{
             choiceId = np.iloc(choiceId, choice_shuffle)
             choiceBag = np.iloc(choiceBag, choice_shuffle)
             rewardMap = np.iloc(rewardMap, choice_shuffle)
-            var choiceIdx = this.get_image_idx(choiceBag, choiceId)
+            var choiceIdx = this.get_asset_idx(choiceBag, choiceId)
             
         }
         
-        // Construct image request 
-        var imageRequests = []
-        imageRequests.push(this.IB.get_by_name(sampleId))
+        // Construct asset request 
+        var assetRequests = []
+        assetRequests.push(this.AB.get_by_name(sampleId, taskAssetType))
         for (var i in choiceId){
-            imageRequests.push(this.IB.get_by_name(choiceId[i]))
+            assetRequests.push(this.AB.get_by_name(choiceId[i], taskAssetType))
         }
     
-        var images = await Promise.all(imageRequests)
-        if(images[0] == undefined){
+        var assets = await Promise.all(assetRequests)
+        if(assets[0] == undefined){
             console.log(this)
-        }        
-        tP['sampleImage'] = images[0]
-        tP['choiceImage'] = images.slice(1)
+        }
+        tP['assetType'] = taskAssetType
+        if (taskAssetType == 'video') tP['loopVid'] = loopVid
+        tP['sampleAsset'] = assets[0]
+        tP['choiceAsset'] = assets.slice(1)
         
         tP['fixationXCentroid'] = tk['fixationXCentroid']
         tP['fixationYCentroid'] = tk['fixationYCentroid']
@@ -265,7 +276,7 @@ class TrialGeneratorClass{
         this.trialBuffer[taskNumber][sampleBagName].push(tP)
     }
 
-    get_image_idx(bag_name, id){
+    get_asset_idx(bag_name, id){
         var i = {}
 
         if (bag_name.constructor == Array){

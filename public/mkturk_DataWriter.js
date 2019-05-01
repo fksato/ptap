@@ -73,9 +73,9 @@ class DataWriter{
 }
 
 class DropboxDataWriter extends DataWriter{
-    constructor(DIO, debugSaveDir, saveDir, savePrefix){
+    constructor(ADIO, debugSaveDir, saveDir, savePrefix){
         super()
-        this.DIO = DIO
+        this.ADIO = ADIO
         this.saveDir = saveDir
         this.debugSaveDir = debugSaveDir
         this.savePrefix = savePrefix
@@ -162,7 +162,7 @@ class DropboxDataWriter extends DataWriter{
 
         var savedMsecAgo = Math.round(performance.now() - this.lastSaveTimestamp)
         this.lastSaveTimestamp = performance.now()
-        await this.DIO.write_string(dataString, this.savePath)
+        await this.ADIO.write_string(dataString, this.savePath)
         console.log('Saved. Size:', memorySizeOf(dataString, 1), '(Last save', savedMsecAgo/1000,'sec ago):')
         
     }

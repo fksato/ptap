@@ -92,17 +92,19 @@ class PlaySpaceClass{
         var choiceDiameterPixels = this.deg2pixels(trialPackage['choiceDiameterDegrees'])
 
         var stimulusFramePackage = {
-            'sampleImage':trialPackage['sampleImage'],
+            'assetType':trialPackage['assetType'],
+            'sampleAsset':trialPackage['sampleAsset'],
             'sampleOn':trialPackage['sampleOnMsec'],
             'sampleOff':trialPackage['sampleOffMsec'],
             'sampleDiameterPixels':sampleDiameterPixels,
             'sampleXCentroid':sampleXCentroidPixels,
             'sampleYCentroid':sampleYCentroidPixels,
-            'choiceImage':trialPackage['choiceImage'],
+            'choiceAsset':trialPackage['choiceAsset'],
             'choiceDiameterPixels':choiceDiameterPixels,
             'choiceXCentroid':choiceXCentroidPixels,
             'choiceYCentroid':choiceYCentroidPixels,
         }
+        if (trialPackage['assetType']=='video') stimulusFramePackage['loopVid'] = trialPackage['loopVid']
 
         await this.ScreenDisplayer.bufferStimulusSequence(stimulusFramePackage)
 
@@ -128,9 +130,15 @@ class PlaySpaceClass{
         }
         
 
+        // TODO:    async functions for display stim sequence and action poller
+        //          need to have looping data => actionPoller either needs access
+        //          to screenDisplayer or vis-versa in order to properly stop the 
+        //          stimulus presentation
+
         // RUN STIMULUS SEQUENCE
         wdm('Running stimulus...')
-        var t_SequenceTimestamps = await this.ScreenDisplayer.displayStimulusSequence()
+        var t_SequenceTimestamps = await this.ScreenDisplayer.displayStimulusSequence()	// force at least one watch through of the entire stimulus asset
+        this.ScreenDisplayer.loopStimulus()													// loop video (if loop)
 
         var actionXCentroidPixels = this.xprop2pixels(trialPackage['actionXCentroid'])
         var actionYCentroidPixels = this.yprop2pixels(trialPackage['actionYCentroid'])
@@ -153,7 +161,12 @@ class PlaySpaceClass{
         }
 
         wdm('Awaiting choice...')
-        var actionOutcome = await actionPromise
+        // testing
+        var loop = true
+        if (loop) { var actionOutcome = await actionPromise.then(this.ScreenDisplayer.stopStimulus) }
+            else var actionOutcome = await actionPromise
+
+        // var actionOutcome = await actionPromise
         var rewardAmount = trialPackage['choiceRewardMap'][actionOutcome['actionIndex']]
 
         // Deliver reinforcement

@@ -42,7 +42,7 @@ def write_landing_page(sessionPackage, agentId = None, landingPageName = None, s
 
     saveLocation = os.path.join(saveDirectoryPath, landingPageName)
     saveStringToDisk(html_string, saveLocation)
-    print 'Saved at %s'%saveLocation
+    print(f'Saved at {saveLocation}')
 
 
 def saveStringToDisk(string, savepath): 

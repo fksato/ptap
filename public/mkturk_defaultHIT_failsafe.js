@@ -13,6 +13,7 @@ DEFAULT_HIT = {
         "randomSeed":undefined,
         }, 
 'TASK_SEQUENCE':[{
+                "assetType":"image",
                 "taskType":"SR", // MTS
                 "sampleBagNames":['stimulus_objectome_airplane', 'stimulus_objectome_ant'], 
                 "rewardMap":{"stimulus_objectome_airplane":[1, 0], "stimulus_objectome_ant":[0, 1]}, // blank if MTS 
@@ -54,7 +55,7 @@ DEFAULT_HIT = {
               'rigEnvironment':'mechanicalturk', // or monkeybox, 
               'bonusUSDPerCorrect':0.0005, 
           },
-'IMAGEBAGS':{
+'STIMBAGS':{
             "stimulus_objectome_airplane": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_airplane_2a39383d3eddfb796bf983863250a16048ba4b6a_ty0.14205_tz-0.05294_rxy-0.92832_rxz102.862_ryz15.4007_s0.7418.png",
             "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_airplane_398d5fa1d268ff2f4f53e643f6be15a817a3a4f0_ty0.72611_tz-0.68672_rxy-84.351_rxz-5.3508_ryz28.4722_s1.2258.png",
             "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_airplane_d85218707783f6a5efb255821df63ae00670750a_ty-0.5344_tz0.16337_rxy141.7118_rxz59.9165_ryz123.427_s0.94724.png",

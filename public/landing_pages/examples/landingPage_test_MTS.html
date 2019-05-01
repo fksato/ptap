@@ -1,0 +1,271 @@
+<!doctype html>
+
+<head>
+<meta name="mobile-web-app-capable" content="yes"> <!-- full screen https://developer.chrome.com/multidevice/android/installtohomescreen -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+
+
+<script>
+// ******* The experimenter fills out SESSION_PACKAGE ********* 
+async function setupSession(){
+  
+  try{
+    SESSION_PACKAGE = {
+    "ENVIRONMENT": {
+        "action_event_type": [
+            "mouseup", 
+            "touchstart", 
+            "touchmove"
+        ], 
+        "bonusUSDPerCorrect": 0.0005, 
+        "instructionsDialogueString": "<ul><p><text style=\"font-weight:bold; font-size:large\">Thank you for your interest and contributing to research at at MIT!</text><pi><li>Please use the latest version of <b>Google Chrome</b> to work on this HIT. It may not work correctly on other browsers.<p><li>You will be presented with rapidly flashed images. <b>Your task is to match images with the one that was rapidly flashed (this will become clear after you try a few trials).</b><p><li>The sound of a bell means you did something right, and received a small bonus reward.<p><li>Each trial begins with a <b>WHITE DOT</b>. Click the dot to begin the trial.<p><li>The HIT will submit <b>AUTOMATICALLY</b> after a certain number of trials. If the HIT freezes or does not submit, please contact us to resolve the issue and receive compensation for your time.<p><text style=\"color:#7A7A7A; font-size:smaller; font-style:italic\">If you cannot meet these requirements or if doing so could cause discomfort or injury, do not accept this HIT. You will not be penalized in any way.</text></ul>", 
+        "juiceRewardPer1000Trials": 250, 
+        "playspace_degreesVisualAngle": 24, 
+        "playspace_verticalOffsetInches": 0, 
+        "playspace_viewingDistanceInches": 8, 
+        "primary_reinforcer_type": "monetary", 
+        "rigEnvironment": "mechanicalturk", 
+        "screen_virtualPixelsPerInch": 143.755902965
+    }, 
+    "GAME_PACKAGE": {
+        "GAME": {
+            "gameId": "example_MechanicalTurk_MTS", 
+            "maximumTrials": 10, 
+            "minimumTrials": 5, 
+            "onFinish": "continue", 
+            "periodicRewardAmount": 0, 
+            "periodicRewardIntervalMsec": 0
+        }, 
+        "STIMBAGS": {
+            "stimulus_objectome_arm_wrestling": [
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0010.mp4"
+            ], 
+            "stimulus_objectome_brushing_teeth": [
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0010.mp4"
+            ],
+            "stimulus_objectome_fencing": [
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Doing+fencing/vid_0010.mp4"
+            ],
+            "stimulus_objectome_horseback_riding": [
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Horseback+riding/vid_0010.mp4"
+            ],
+            "stimulus_objectome_hula_hoop": [
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Hula+hoop/vid_0010.mp4"
+            ],
+            "stimulus_objectome_rope_skipping": [
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Rope+skipping/vid_0010.mp4"
+            ],
+            "stimulus_objectome_swimming": [
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Swimming/vid_0010.mp4"
+            ]
+        }, 
+        "TASK_SEQUENCE": [
+            {
+                "assetType": "video",
+                "loopVid": 1,               // (IF asset video) 1: loop, 0: dont loop
+                "actionDiameterDegrees": [
+                    5, 
+                    5
+                ], 
+                "actionXCentroid": [
+                    0.2, 
+                    0.8
+                ], 
+                "actionYCentroid": [
+                    0.5, 
+                    0.5
+                ], 
+                "averageReturnCriterion": 0.8, 
+                "choiceDiameterDegrees": [
+                    10, 
+                    10
+                ], 
+                "choiceMap": {
+                    "stimulus_objectome_arm_wrestling": "stimulus_objectome_arm_wrestling", 
+                    "stimulus_objectome_brushing_teeth": "stimulus_objectome_brushing_teeth", 
+                    "stimulus_objectome_fencing": "stimulus_objectome_fencing", 
+                    "stimulus_objectome_horseback_riding": "stimulus_objectome_horseback_riding", 
+                    "stimulus_objectome_hula_hoop": "stimulus_objectome_hula_hoop", 
+                    "stimulus_objectome_rope_skipping": "stimulus_objectome_rope_skipping", 
+                    "stimulus_objectome_swimming": "stimulus_objectome_swimming"
+                }, 
+                "choiceTimeLimitMsec": 5000, 
+                "choiceXCentroid": [
+                    0.2, 
+                    0.8
+                ], 
+                "choiceYCentroid": [
+                    0.5, 
+                    0.5
+                ], 
+                "drawEyeFixationDot": true, 
+                "fixationDiameterDegrees": 3, 
+                "fixationXCentroid": 0.5, 
+                "fixationYCentroid": 0.8, 
+                "minTrialsCriterion": 5, 
+                "probabilityRepeatWhenWrong": 0, 
+                "punishStreakTimeOutMultiplier": 1.2, 
+                "punishTimeOutMsec": 400, 
+                "rewardTimeOutMsec": 150, 
+                "sampleBagNames": [
+                    "stimulus_objectome_arm_wrestling", 
+                    "stimulus_objectome_horseback_riding",
+                    "stimulus_objectome_fencing", 
+                    "stimulus_objectome_horseback_riding", 
+                    "stimulus_objectome_hula_hoop", 
+                    "stimulus_objectome_rope_skipping", 
+                    "stimulus_objectome_swimming"
+                ], 
+                "sampleDiameterDegrees": 10, 
+                "sampleOffMsec": 0, 
+                "sampleOnMsec": 200, 
+                "sampleSampleWithReplacement": false, 
+                "sampleXCentroid": 0.5, 
+                "sampleYCentroid": 0.5, 
+                "taskType": "MTS"
+            }
+        ]
+    }
+}
+  }
+  catch(error){
+    console.log(error)
+    SESSION_PACKAGE = undefined
+  }
+
+  try{
+    // Not necessary to fill out for mechanical turk; in that case the workerId is extracted from the URL suffix. 
+    // Fill in for upstairs task; e.g. 'Zico'
+    agentId = __AGENTID_GOES_HERE__
+  }
+  catch(error){
+    console.log(error)
+    agentId = 'unknown_agent_'+Math.round(window.performance.timing.navigationStart)
+  }
+
+  var localSavePackage = {'SESSION_PACKAGE':SESSION_PACKAGE, 'agentId':agentId, 'LANDING_PAGE_URL':window.location.href}
+  await concludeLandingPage(localSavePackage)
+}
+
+</script>
+
+<script>
+// ******** Util functions ********
+async function concludeLandingPage(localSavePackage){
+    
+    SESSION_PACKAGE = localSavePackage['SESSION_PACKAGE']
+    agentId = localSavePackage['agentId']
+    LANDING_PAGE_URL = localSavePackage['LANDING_PAGE_URL']
+
+    console.log('landing page url', window.location.href)
+
+    await localStorage.setItem("SESSION_PACKAGE", btoa(JSON.stringify(SESSION_PACKAGE)))
+    await localStorage.setItem('LANDING_PAGE_URL', btoa(LANDING_PAGE_URL))
+    await localStorage.setItem('agentId', btoa(agentId))
+
+    console.log('All items stored. Redirecting...')
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    go_to_main_page()
+}
+
+function go_to_main_page(){
+  var currentURL = window.location.href 
+    if(currentURL.indexOf('localhost')!=-1){
+        window.location.href = '/public/mkturk.html?loadtime=' +Math.round(window.performance.timing.navigationStart)
+    }
+    else{
+      try{
+        s3_bucket = "temporal-mturk-landing"
+        window.location.href = "https://s3.amazonaws.com/"+s3_bucket+"/public/mkturk.html" //?loadtime="+Math.round(window.performance.timing.navigationStart)
+      }
+      catch(error){
+        window.location.href = "https://s3.amazonaws.com/ptapscratch/public/mkturk.html"//?loadtime="+Math.round(window.performance.timing.navigationStart)
+      }
+        
+    }
+
+    
+}
+
+
+</script>
+
+
+<script>
+(async function(){
+    await setupSession();
+}
+)()
+</script>
+
+</head>
+
+<body>
+    Loading HIT...If you are stuck on this screen, please make sure you are using Google Chrome and have cookies ENABLED. 
+</body>
+</html>

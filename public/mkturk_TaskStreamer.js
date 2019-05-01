@@ -1,10 +1,10 @@
 class TaskStreamerClass{
-    constructor(gamePackage, IB, CheckPointer){
+    constructor(gamePackage, AB, CheckPointer){
         this.game = gamePackage['GAME']
-        this.imageBags = gamePackage['IMAGEBAGS']
+        this.stimBags = gamePackage['STIMBAGS']
         this.taskSequence = gamePackage['TASK_SEQUENCE']
 
-        this.TG = new TrialGeneratorClass(IB, gamePackage['IMAGEBAGS'], gamePackage['TASK_SEQUENCE'], this.game['onFinish'])
+        this.TG = new TrialGeneratorClass(AB, gamePackage['STIMBAGS'], gamePackage['TASK_SEQUENCE'], this.game['onFinish'])
 
         this.CheckPointer = CheckPointer
         

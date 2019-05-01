@@ -3,7 +3,7 @@ reload(c)
 
 SAVE_LOCATION = '../public/landing_pages/examples/'
 def makeInLabMTS(): 
-    IMAGEBAGS = 'https://s3.amazonaws.com/milresources/ImageBagMetaDefinitions/MutatorTraining_FullVarWithBGSetA.json'
+    STIMBAGS = 'https://s3.amazonaws.com/milresources/ImageBagMetaDefinitions/MutatorTraining_FullVarWithBGSetA.json'
 
     GAME = {'gameId':'example_inlab_MTS',
           "periodicRewardIntervalMsec":60000,
@@ -13,6 +13,7 @@ def makeInLabMTS():
     }
 
     TASK_SEQUENCE = [{
+                  "assetType":"image",
                   "taskType":"MTS", 
                   "sampleBagNames":['FullVarWithBGSetA_batch0obj0', 'FullVarWithBGSetA_batch0obj1', 
                   'FullVarWithBGSetA_batch0obj2'], 
@@ -58,7 +59,7 @@ def makeInLabMTS():
 
                 }  
 
-    SESSION_PACKAGE = {'GAME_PACKAGE':{'IMAGEBAGS':IMAGEBAGS, 'TASK_SEQUENCE':TASK_SEQUENCE, 'GAME':GAME}, 
+    SESSION_PACKAGE = {'GAME_PACKAGE':{'STIMBAGS':STIMBAGS, 'TASK_SEQUENCE':TASK_SEQUENCE, 'GAME':GAME}, 
     'ENVIRONMENT':ENVIRONMENT}
     c.write_landing_page(SESSION_PACKAGE, agentId = 'example_inlab_worker', landingPageName = 'landingPage_InlabMTS.html', saveDirectoryPath = SAVE_LOCATION) 
     return 
@@ -69,7 +70,7 @@ def makeInLabSR():
     return
 
 def makeMechanicalTurkSR(): 
-    IMAGEBAGS = {"stimulus_objectome_flute":["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_e0aed0e2c3f0c3cb7a7e235bd931f193a536391d_ty-0.85987_tz-0.38018_rxy-36.131_rxz152.6439_ryz28.9932_s1.4314.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_2012a31313faa422b2623460d0c33a9f5eb3b238_ty-0.33547_tz-0.0026731_rxy-38.2159_rxz-115.311_ryz90.0954_s1.3508.png"], 
+    STIMBAGS = {"stimulus_objectome_flute":["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_e0aed0e2c3f0c3cb7a7e235bd931f193a536391d_ty-0.85987_tz-0.38018_rxy-36.131_rxz152.6439_ryz28.9932_s1.4314.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_2012a31313faa422b2623460d0c33a9f5eb3b238_ty-0.33547_tz-0.0026731_rxy-38.2159_rxz-115.311_ryz90.0954_s1.3508.png"], 
     "token_objectome_flute": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome_tokens/images/objectomeTokens_objectome_flute.png"], 
     "stimulus_objectome_dog": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_dog_e1ed016de5e47e8a6567123ce134d72b7187db73_ty0.43294_tz-0.29943_rxy-112.6794_rxz75.5665_ryz127.211_s1.6328.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_dog_28ebb7db56691da21fa6d640f5ef719f916cb7ff_ty-0.48998_tz-0.20078_rxy-84.7937_rxz-117.8076_ryz175.5429_s1.3151.png"], 
     "token_objectome_dog": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome_tokens/images/objectomeTokens_objectome_dog.png"], 
@@ -86,6 +87,7 @@ def makeMechanicalTurkSR():
     }
 
     TASK_SEQUENCE = [{
+                    "assetType":"image",
                     "taskType":"SR", 
                     "sampleBagNames":['stimulus_objectome_pineapple', 'stimulus_objectome_flute'], 
                     "fixationXCentroid":0.5,
@@ -114,7 +116,7 @@ def makeMechanicalTurkSR():
                     "drawEyeFixationDot":True
                     }]
 
-    GAME_PACKAGE = {'IMAGEBAGS':IMAGEBAGS, 'GAME':GAME, 'TASK_SEQUENCE':TASK_SEQUENCE}
+    GAME_PACKAGE = {'STIMBAGS':STIMBAGS, 'GAME':GAME, 'TASK_SEQUENCE':TASK_SEQUENCE}
     ENVIRONMENT = {
                       'playspace_degreesVisualAngle':24,
                       'playspace_verticalOffsetInches':0, 
@@ -137,7 +139,7 @@ def makeMechanicalTurkSR():
 
 def makeMechanicalTurkMTS(): 
 
-    IMAGEBAGS = {"stimulus_objectome_flute":["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_e0aed0e2c3f0c3cb7a7e235bd931f193a536391d_ty-0.85987_tz-0.38018_rxy-36.131_rxz152.6439_ryz28.9932_s1.4314.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_2012a31313faa422b2623460d0c33a9f5eb3b238_ty-0.33547_tz-0.0026731_rxy-38.2159_rxz-115.311_ryz90.0954_s1.3508.png"], 
+    STIMBAGS = {"stimulus_objectome_flute":["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_e0aed0e2c3f0c3cb7a7e235bd931f193a536391d_ty-0.85987_tz-0.38018_rxy-36.131_rxz152.6439_ryz28.9932_s1.4314.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_2012a31313faa422b2623460d0c33a9f5eb3b238_ty-0.33547_tz-0.0026731_rxy-38.2159_rxz-115.311_ryz90.0954_s1.3508.png"], 
     "token_objectome_flute": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome_tokens/images/objectomeTokens_objectome_flute.png"], 
     "stimulus_objectome_dog": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_dog_e1ed016de5e47e8a6567123ce134d72b7187db73_ty0.43294_tz-0.29943_rxy-112.6794_rxz75.5665_ryz127.211_s1.6328.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_dog_28ebb7db56691da21fa6d640f5ef719f916cb7ff_ty-0.48998_tz-0.20078_rxy-84.7937_rxz-117.8076_ryz175.5429_s1.3151.png"], 
     "token_objectome_dog": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome_tokens/images/objectomeTokens_objectome_dog.png"], 
@@ -154,6 +156,7 @@ def makeMechanicalTurkMTS():
     }
 
     TASK_SEQUENCE = [{
+                    "assetType":"image",
                     "taskType":"MTS", 
                     "sampleBagNames":['stimulus_objectome_pineapple', 'stimulus_objectome_flute'], 
                     "fixationXCentroid":0.5,
@@ -184,7 +187,7 @@ def makeMechanicalTurkMTS():
                     "drawEyeFixationDot":True
                     }]
 
-    GAME_PACKAGE = {'IMAGEBAGS':IMAGEBAGS, 'GAME':GAME, 'TASK_SEQUENCE':TASK_SEQUENCE}
+    GAME_PACKAGE = {'STIMBAGS':STIMBAGS, 'GAME':GAME, 'TASK_SEQUENCE':TASK_SEQUENCE}
     ENVIRONMENT = {
                       'playspace_degreesVisualAngle':24,
                       'playspace_verticalOffsetInches':0, 
@@ -205,7 +208,7 @@ def makeMechanicalTurkMTS():
 
 def makeMechanicalTurkSwitcher(): 
 
-    IMAGEBAGS = {"stimulus_objectome_flute":["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_e0aed0e2c3f0c3cb7a7e235bd931f193a536391d_ty-0.85987_tz-0.38018_rxy-36.131_rxz152.6439_ryz28.9932_s1.4314.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_2012a31313faa422b2623460d0c33a9f5eb3b238_ty-0.33547_tz-0.0026731_rxy-38.2159_rxz-115.311_ryz90.0954_s1.3508.png"], 
+    STIMBAGS = {"stimulus_objectome_flute":["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_e0aed0e2c3f0c3cb7a7e235bd931f193a536391d_ty-0.85987_tz-0.38018_rxy-36.131_rxz152.6439_ryz28.9932_s1.4314.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_flute_2012a31313faa422b2623460d0c33a9f5eb3b238_ty-0.33547_tz-0.0026731_rxy-38.2159_rxz-115.311_ryz90.0954_s1.3508.png"], 
     "token_objectome_flute": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome_tokens/images/objectomeTokens_objectome_flute.png"], 
     "stimulus_objectome_dog": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_dog_e1ed016de5e47e8a6567123ce134d72b7187db73_ty0.43294_tz-0.29943_rxy-112.6794_rxz75.5665_ryz127.211_s1.6328.png", "https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome/images/objectome_dog_28ebb7db56691da21fa6d640f5ef719f916cb7ff_ty-0.48998_tz-0.20078_rxy-84.7937_rxz-117.8076_ryz175.5429_s1.3151.png"], 
     "token_objectome_dog": ["https://s3.amazonaws.com/milresources/Images/MonkeyTurkSets/objectome_tokens/images/objectomeTokens_objectome_dog.png"], 
@@ -222,6 +225,7 @@ def makeMechanicalTurkSwitcher():
     }
 
     TASK_SEQUENCE = [{
+                    "assetType":"image",
                     "taskType":"MTS", 
                     "sampleBagNames":['stimulus_objectome_pineapple', 'stimulus_objectome_flute'], 
                     "fixationXCentroid":0.5,
@@ -281,7 +285,7 @@ def makeMechanicalTurkSwitcher():
                     "drawEyeFixationDot":True
                     }]
 
-    GAME_PACKAGE = {'IMAGEBAGS':IMAGEBAGS, 'GAME':GAME, 'TASK_SEQUENCE':TASK_SEQUENCE}
+    GAME_PACKAGE = {'STIMBAGS':STIMBAGS, 'GAME':GAME, 'TASK_SEQUENCE':TASK_SEQUENCE}
     ENVIRONMENT = {
                       'playspace_degreesVisualAngle':24,
                       'playspace_verticalOffsetInches':0, 

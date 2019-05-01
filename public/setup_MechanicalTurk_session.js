@@ -2,7 +2,7 @@ async function setup_mechanicalturk_session(sessionPackage){
  
   GAME_PACKAGE = sessionPackage['GAME_PACKAGE']
   GAME = GAME_PACKAGE['GAME']
-  IMAGEBAGS = GAME_PACKAGE['IMAGEBAGS']
+  STIMBAGS = GAME_PACKAGE['STIMBAGS']
   TASK_SEQUENCE = GAME_PACKAGE['TASK_SEQUENCE']
 
   ENVIRONMENT = sessionPackage['ENVIRONMENT'] 
@@ -23,11 +23,11 @@ async function setup_mechanicalturk_session(sessionPackage){
   SESSION['unixTimestampPageLoad'] = window.performance.timing.navigationStart
 
   console.log('SESSION', SESSION)
-  SIO = new S3_IO() 
-  IB = new ImageBuffer(SIO)
+  SIO = new S3_IO()
+  AB = new AssetBuffer(SIO)
   CheckPointer = new MechanicalTurkCheckPointer(GAME_PACKAGE)
   await CheckPointer.build()
-  TaskStreamer = new TaskStreamerClass(GAME_PACKAGE, IB, CheckPointer)
+  TaskStreamer = new TaskStreamerClass(GAME_PACKAGE, AB, CheckPointer)
   await TaskStreamer.build(5)
   DataWriter = new MechanicalTurkDataWriter(SESSION['assignmentId'], SESSION['hitId'], SESSION['inSandboxMode']) 
 
@@ -51,14 +51,14 @@ async function setup_mechanicalturk_session(sessionPackage){
   // Convenience - if debugging on my machine, skip instructions etc. 
   if(window.location.href.indexOf('localhost')!=-1){
     var show_instructions = true
-    var show_hand_selection = true 
-    var show_device_selection = true 
+    var show_hand_selection = false 
+    var show_device_selection = false 
     var run_preview_mode = false
   }
   else{
     var show_instructions = true
-    var show_hand_selection = true 
-    var show_device_selection = true 
+    var show_hand_selection = false 
+    var show_device_selection = false 
     if(SESSION['assignmentId'] == 'assignmentId_not_found'|| SESSION['assignmentId'] == 'ASSIGNMENT_ID_NOT_AVAILABLE'){
       var run_preview_mode = true
     }
@@ -103,8 +103,5 @@ async function setup_mechanicalturk_session(sessionPackage){
   freturn['SESSION'] = SESSION
   return freturn
 }
-
-
-
 
 

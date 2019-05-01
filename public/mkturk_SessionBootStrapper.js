@@ -40,64 +40,64 @@ class SessionBootStrapper{
         var gamePackage = await this.download_from_string(game_package_key) 
         var unpackedGame = {}
 
-        unpackedGame['IMAGEBAGS'] = await this.unpack_imagebags(gamePackage['IMAGEBAGS'])
+        unpackedGame['STIMBAGS'] = await this.unpack_stimbags(gamePackage['STIMBAGS'])
         unpackedGame['GAME'] = await this.unpack_game(gamePackage['GAME'])
         unpackedGame['TASK_SEQUENCE'] = await this.unpack_task_sequence(gamePackage['TASK_SEQUENCE'])
 
         return unpackedGame
     }
 
-    async unpack_imagebags(imagebags_bootstrap){
+    async unpack_stimbags(stimbags_bootstrap){
 
-        console.log('Loading IMAGEBAGS')
-        var imagebags = await this.download_from_string(imagebags_bootstrap)
-        console.log('Done downloading imagebags. Unpacking...')
+        console.log('Loading STIMBAGS')
+        var stimbags = await this.download_from_string(stimbags_bootstrap)
+        console.log('Done downloading stimbags. Unpacking...')
         var loadMethods = []
-        var unpacked_imagebags = {}
-        if (imagebags.constructor == Array){
+        var unpacked_stimbags = {}
+        if (stimbags.constructor == Array){
             // Unpack additional levels
-            for (var i in imagebags){
-                var x = await this.download_from_string(imagebags[i])
-                loadMethods.push(this.infer_load_method(imagebags[i]))
+            for (var i in stimbags){
+                var x = await this.download_from_string(stimbags[i])
+                loadMethods.push(this.infer_load_method(stimbags[i]))
                 for (var j in x){
                     if(!x.hasOwnProperty(j)){
                         continue
                     }
 
-                    unpacked_imagebags[j] = x[j]
+                    unpacked_stimbags[j] = x[j]
                 }
             }
         }
-        else if(imagebags.constructor == Object){
-            imagebags = [imagebags]
-            unpacked_imagebags = imagebags[0]
-            loadMethods.push(this.infer_load_method(imagebags_bootstrap))
+        else if(stimbags.constructor == Object){
+            stimbags = [stimbags]
+            unpacked_stimbags = stimbags[0]
+            loadMethods.push(this.infer_load_method(stimbags_bootstrap))
         }
         else{
             return undefined
         }
 
         // Convert singleton bags into length-1 arrays
-        for (var bagName in unpacked_imagebags){
-            if(!unpacked_imagebags.hasOwnProperty(bagName)){
+        for (var bagName in unpacked_stimbags){
+            if(!unpacked_stimbags.hasOwnProperty(bagName)){
                 continue
             }
-            if (unpacked_imagebags[bagName].constructor == String){
+            if (unpacked_stimbags[bagName].constructor == String){
                 // Convert singletons
-                unpacked_imagebags[bagName] = [unpacked_imagebags[bagName]]
+                unpacked_stimbags[bagName] = [unpacked_stimbags[bagName]]
             }
         }
 
         // Log 
-        this.bootstrapLog['IMAGEBAGS'] = {}
+        this.bootstrapLog['STIMBAGS'] = {}
 
-        console.log('imagebags load method', loadMethods)
-        console.log('imagebags_bootstrap', imagebags_bootstrap)
+        console.log('stimbags load method', loadMethods)
+        console.log('stimbags_bootstrap', stimbags_bootstrap)
         
 
         if (loadMethods.length == 1){
-            this.bootstrapLog['IMAGEBAGS']['constructor'] = imagebags_bootstrap
-            this.bootstrapLog['IMAGEBAGS']['loadMethod'] = loadMethods[0]
+            this.bootstrapLog['STIMBAGS']['constructor'] = stimbags_bootstrap
+            this.bootstrapLog['STIMBAGS']['loadMethod'] = loadMethods[0]
         }
         
         else{
@@ -107,18 +107,18 @@ class SessionBootStrapper{
             for (var k in loadMethods){
                 var lM = loadMethods[k]
                 if (lM == 'dropbox' || lM == 'url'){
-                    constructors.push(imagebags[k])
+                    constructors.push(stimbags[k])
                 } 
                 else{
                     constructors.push(undefined)
                 }
             }
 
-            this.bootstrapLog['IMAGEBAGS']['constructor'] = constructors
-            this.bootstrapLog['IMAGEBAGS']['loadMethod'] = loadMethods
+            this.bootstrapLog['STIMBAGS']['constructor'] = constructors
+            this.bootstrapLog['STIMBAGS']['loadMethod'] = loadMethods
         }
 
-        return unpacked_imagebags
+        return unpacked_stimbags
     }
 
     async unpack_game(game_bootstrap){
@@ -183,12 +183,12 @@ class SessionBootStrapper{
             return JSON.parse(local_val)
         }
         else if(loadMethod == 'dropbox'){
-            if (this.DIO == undefined){
-                this.DIO = new DropboxIO()
-                await this.DIO.build(window.location.href)
+            if (this.ADIO == undefined){
+                this.ADIO = new DropboxIO()
+                await this.ADIO.build(window.location.href)
             }
             
-            var s = await this.DIO.read_textfile(local_val)
+            var s = await this.ADIO.read_textfile(local_val)
             return JSON.parse(s)
         }
         else if(loadMethod == 'url'){

@@ -176,12 +176,13 @@ async function setupSession(){
       "periodicRewardIntervalMsec": 0, 
       "randomSeed": "none"
     }, 
-    "IMAGEBAGS": [
+    "STIMBAGS": [
       "https://s3.amazonaws.com/milresources/ImageBagManifests/AbstractShapes/abstractShapes_imagebags.json", 
       "https://s3.amazonaws.com/milresources/ImageBagManifests/MutatorB0/MutatorB0_FullVar_and_Canonical_imagebags.json"
     ], 
     "TASK_SEQUENCE": [
       {
+        "assetType": "image",
         "actionDiameterDegrees": [
           4, 
           4
@@ -240,6 +241,7 @@ async function setupSession(){
         "taskType": "SR"
       }, 
       {
+        "assetType": "image",
         "actionDiameterDegrees": [
           4, 
           4
@@ -294,6 +296,7 @@ async function setupSession(){
         "taskType": "SR"
       }, 
       {
+        "assetType": "image",
         "actionDiameterDegrees": [
           4, 
           4
