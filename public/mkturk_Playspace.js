@@ -11,6 +11,7 @@ class PlaySpaceClass{
         var periodicRewardAmount = playspacePackage['periodicRewardAmount'] 
         var bonusUSDPerCorrect = playspacePackage['bonusUSDPerCorrect'] 
         var juiceRewardPer1000 = playspacePackage['juiceRewardPer1000Trials']
+        this.window_ratio = playspacePackage['playspace_window_ratio']
         this.viewingDistanceInches = playspace_viewingDistanceInches
         this.viewingOffsetInches = playspace_verticalOffsetInches // Todo: not implemented yet 
         this.playspaceSizeDegrees = playspace_degreesVisualAngle
@@ -295,7 +296,7 @@ class PlaySpaceClass{
         var min_dimension = Math.ceil(min_dimension)
 
         bounds['height'] = min_dimension
-        bounds['width'] = min_dimension 
+        bounds['width'] = min_dimension  * this.window_ratio
         bounds['leftBound'] = Math.floor((windowWidth - min_dimension)/2) // in units of window
         bounds['rightBound'] = Math.floor(windowWidth-(windowWidth - min_dimension)/2)
         bounds['topBound'] = Math.floor((windowHeight - min_dimension)/2)
@@ -334,14 +335,15 @@ class PlaySpaceClass{
             var windowHeight = getWindowHeight()
             var windowWidth = getWindowWidth()
 
-            var screen_margin = 0.15
+            var screen_margin = 0.1
             var max_allowable_playspace_dimension = Math.round(Math.min(windowHeight, windowWidth))*(1-screen_margin)
 
             var min_dimension = Math.min(max_allowable_playspace_dimension, _this.playspaceSizePixels)
             var min_dimension = Math.ceil(min_dimension)
 
             _this.height = min_dimension
-            _this.width = min_dimension 
+            _this.width = min_dimension * _this.window_ratio
+            // _this.leftBound = Math.floor((windowWidth - _this.width)/10) // in units of window
             _this.leftBound = Math.floor((windowWidth - _this.width)/2) // in units of window
             _this.rightBound = Math.floor(windowWidth-(windowWidth - _this.width)/2)
             _this.topBound = Math.floor((windowHeight - _this.height)/2)

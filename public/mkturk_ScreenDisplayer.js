@@ -118,6 +118,7 @@ class ScreenDisplayer{
 
 	async _buffer_vids(stimulusFramePackage) {
 		this.loopVid = stimulusFramePackage['loopVid']
+		this.vidStartOffset = 0.5
 		this.sample_vid = stimulusFramePackage['sampleAsset']
 		var sampleDiameterPixels = stimulusFramePackage['sampleDiameterPixels'] 
 		var sampleXCentroid = stimulusFramePackage['sampleXCentroid'] 
@@ -425,8 +426,8 @@ class ScreenDisplayer{
 			// reset canvas:
 			_this.renderBlank(sequence[0])
 			// make sure that the current time of the video is set to the beginning
-			_this.choice_vid[0].currentTime = 0
-			_this.choice_vid[1].currentTime = 0
+			_this.choice_vid[0].currentTime = _this.vidStartOffset
+			_this.choice_vid[1].currentTime = _this.vidStartOffset
 
 			_this.choice_vid[0].play()
 			_this.choice_vid[1].play()
@@ -442,7 +443,7 @@ class ScreenDisplayer{
 
 			if(!_this.choice_vid[1].ended) {
 				_this.choice_vid[1].pause()
-				_this.choice_vid[1].currentTime = 0
+				_this.choice_vid[1].currentTime = _this.vidStartOffset
 			}
 
 			resolveFunc(frame_unix_timestamps)
@@ -496,11 +497,18 @@ class ScreenDisplayer{
 		if(this.loopVid) {
 			var ctx_test = choiceCanvas.getContext('2d')
 			while (choiceCanvas.style.zIndex == '100') {
+				this.choice_vid[0].currentTime = this.vidStartOffset
+				this.choice_vid[1].currentTime = this.vidStartOffset
 				this.choice_vid[0].play()
 				this.choice_vid[1].play()
 				await this._playback(this.choice_vid, this.test_dims, ctx_test, 2500, 75)
-				await this.renderBlank(choiceCanvas)
+				for (var i = 0; i < this.choice_vid.length; i++) {
+					if(!this.choice_vid[i].ended) {
+						this.choice_vid[i].pause()	
+					}
+				}
 			}
+			await this.renderBlank(choiceCanvas)
 		}
 	}
 
@@ -509,7 +517,7 @@ class ScreenDisplayer{
 			if(!this.choice_vid[vidID].ended) {
 				this.choice_vid[vidID].pause()	
 			}
-			this.choice_vid[vidID].currentTime = 0
+			this.choice_vid[vidID].currentTime = this.vidStartOffset
 		}
 		var choiceCanvas = this.getSequenceCanvas('stimulus_sequence', 1)
 		choiceCanvas.style.zIndex = "0";

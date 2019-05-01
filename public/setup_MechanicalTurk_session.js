@@ -41,7 +41,8 @@ async function setup_mechanicalturk_session(sessionPackage){
     'periodicRewardIntervalMsec':GAME['periodicRewardIntervalMsec'], 
     'periodicRewardAmount':GAME['periodicRewardAmount'], 
     'bonusUSDPerCorrect':ENVIRONMENT['bonusUSDPerCorrect'], 
-    'juiceRewardPer1000Trials':ENVIRONMENT['juiceRewardPer1000Trials']}
+    'juiceRewardPer1000Trials':ENVIRONMENT['juiceRewardPer1000Trials'],
+    'playspace_window_ratio':ENVIRONMENT['playspace_window_ratio']}
   Playspace = new PlaySpaceClass(playspacePackage)
   await Playspace.build()
 
