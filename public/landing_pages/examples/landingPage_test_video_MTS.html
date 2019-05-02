@@ -27,7 +27,8 @@ async function setupSession(){
         "playspace_viewingDistanceInches": 8, 
         "primary_reinforcer_type": "monetary", 
         "rigEnvironment": "mechanicalturk", 
-        "screen_virtualPixelsPerInch": 143.755902965
+        "screen_virtualPixelsPerInch": 143.755902965,
+        'playspace_window_ratio': 1.778
     }, 
     "GAME_PACKAGE": {
         "GAME": {
@@ -40,16 +41,16 @@ async function setupSession(){
         }, 
         "STIMBAGS": {
             "stimulus_objectome_arm_wrestling": [
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00001.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00002.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00003.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00004.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00005.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00006.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00007.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00008.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00009.mp4", 
-                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_00010.mp4"
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0001.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0002.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0003.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0004.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0005.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0006.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0007.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0008.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0009.mp4", 
+                "https://s3.amazonaws.com/temporal-videos/Arm+wrestling/vid_0010.mp4"
             ], 
             "stimulus_objectome_brushing_teeth": [
                 "https://s3.amazonaws.com/temporal-videos/Brushing+teeth/vid_0001.mp4", 
@@ -129,8 +130,8 @@ async function setupSession(){
                 "assetType": "video",
                 "loopVid": 1,               // (IF asset video) 1: loop, 0: dont loop
                 "actionDiameterDegrees": [
-                    5, 
-                    5
+                    15, 
+                    15
                 ], 
                 "actionXCentroid": [
                     0.2, 
@@ -142,8 +143,8 @@ async function setupSession(){
                 ], 
                 "averageReturnCriterion": 0.8, 
                 "choiceDiameterDegrees": [
-                    10, 
-                    10
+                    20, 
+                    20
                 ], 
                 "choiceMap": {
                     "stimulus_objectome_arm_wrestling": "stimulus_objectome_arm_wrestling", 
@@ -154,34 +155,34 @@ async function setupSession(){
                     "stimulus_objectome_rope_skipping": "stimulus_objectome_rope_skipping", 
                     "stimulus_objectome_swimming": "stimulus_objectome_swimming"
                 }, 
-                "choiceTimeLimitMsec": 5000, 
+                "choiceTimeLimitMsec": 4000, 
                 "choiceXCentroid": [
-                    0.2, 
-                    0.8
+                    0.25, 
+                    0.75
                 ], 
                 "choiceYCentroid": [
                     0.5, 
                     0.5
                 ], 
-                "drawEyeFixationDot": true, 
+                "drawEyeFixationDot": true,
                 "fixationDiameterDegrees": 3, 
                 "fixationXCentroid": 0.5, 
                 "fixationYCentroid": 0.8, 
                 "minTrialsCriterion": 5, 
                 "probabilityRepeatWhenWrong": 0, 
                 "punishStreakTimeOutMultiplier": 1.2, 
-                "punishTimeOutMsec": 400, 
-                "rewardTimeOutMsec": 150, 
+                "punishTimeOutMsec": 0, 
+                "rewardTimeOutMsec": 0, 
                 "sampleBagNames": [
                     "stimulus_objectome_arm_wrestling", 
-                    "stimulus_objectome_horseback_riding",
+                    "stimulus_objectome_brushing_teeth",
                     "stimulus_objectome_fencing", 
                     "stimulus_objectome_horseback_riding", 
                     "stimulus_objectome_hula_hoop", 
                     "stimulus_objectome_rope_skipping", 
                     "stimulus_objectome_swimming"
                 ], 
-                "sampleDiameterDegrees": 10, 
+                "sampleDiameterDegrees": 20, 
                 "sampleOffMsec": 0, 
                 "sampleOnMsec": 200, 
                 "sampleSampleWithReplacement": false, 
