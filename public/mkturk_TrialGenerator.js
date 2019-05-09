@@ -136,14 +136,10 @@ class TrialGeneratorClass{
             console.log("MTS")
             var correctBag = np.choice(tk['choiceMap'][sampleBag])
             var correctPool = this.stimbags[correctBag].slice()
-            var check = correctPool.splice(sampleIdx['id']-1, 1)
+            var removeIdx = sampleIdx['id']
+            correctPool.splice(removeIdx, 1)
 
-            if(check.includes(sampleId)) {
-                console.error('DOES NOT COMPUTE')
-            }
-
-
-            var correctId = np.choice(check)
+            var correctId = np.choice(correctPool)
             var correctIdx = this.get_asset_idx(correctBag, correctId) 
 
             // Select distractors
